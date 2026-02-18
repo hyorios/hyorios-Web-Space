@@ -5,18 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Platform</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #121212; color: #e0e0e0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { text-align: center; padding: 2.5rem; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        h1 { color: #ffffff; }
-        button { background-color: #007bff; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.2s; }
-        button:hover { background-color: #0056b3; }
-        #statusResult { margin-top: 1.5rem; font-weight: bold; min-height: 1.2em; }
+        :root {
+            /* --- Our Mathematical & Rhythmic Rules --- */
+            --golden-ratio: 1.618;
+            --base-unit: 8px; /* Our modular scale is based on 8 */
+            --base-font-size: 1rem; /* Typically 16px */
+
+            /* --- Derived Values --- */
+            --spacing-sm: var(--base-unit);
+            --spacing-md: calc(var(--base-unit) * 2); /* 16px */
+            --spacing-lg: calc(var(--base-unit) * 3); /* 24px */
+            --spacing-xl: calc(var(--base-unit) * 4); /* 32px */
+
+            --font-size-p: var(--base-font-size);
+            --font-size-h1: calc(var(--base-font-size) * var(--golden-ratio) * var(--golden-ratio)); /* ~42px */
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-size: var(--font-size-p);
+        }
+
+        .container {
+            text-align: center;
+            padding: var(--spacing-xl);
+            background-color: #1e1e1e;
+            border-radius: var(--spacing-md);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: var(--font-size-h1);
+            margin-bottom: var(--spacing-md);
+        }
+
+        p {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--spacing-sm);
+            cursor: pointer;
+            font-size: var(--font-size-p);
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #statusResult {
+            margin-top: var(--spacing-lg);
+            font-weight: bold;
+            min-height: 1.2em;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to Your Private Space</h1>
-        <p>This is the first stone of your new platform.</p>
+        <p>This is the first stone of your new platform, now built on a foundation of mathematical harmony.</p>
         <button id="statusButton">Check Backend Status</button>
         <div id="statusResult"></div>
     </div>

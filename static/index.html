@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Platform</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #121212; color: #e0e0e0; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { text-align: center; padding: 2.5rem; background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        h1 { color: #ffffff; }
+        button { background-color: #007bff; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 1rem; transition: background-color 0.2s; }
+        button:hover { background-color: #0056b3; }
+        #statusResult { margin-top: 1.5rem; font-weight: bold; min-height: 1.2em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Your Private Space</h1>
+        <p>This is the first stone of your new platform.</p>
+        <button id="statusButton">Check Backend Status</button>
+        <div id="statusResult"></div>
+    </div>
+
+    <script>
+        document.getElementById('statusButton').addEventListener('click', async () => {
+            const resultDiv = document.getElementById('statusResult');
+            resultDiv.textContent = 'Pinging backend...';
+            resultDiv.style.color = '#e0e0e0';
+            try {
+                const response = await fetch('/api/status');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                resultDiv.textContent = `✅ Success! Backend says: "${data.message}"`;
+                resultDiv.style.color = '#28a745';
+            } catch (error) {
+                resultDiv.textContent = '❌ Error: Could not connect to the backend.';
+                resultDiv.style.color = '#dc3545';
+                console.error('Error fetching status:', error);
+            }
+        });
+    </script>
+</body>
+</html>

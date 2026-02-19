@@ -11,3 +11,10 @@ venv/
 # IDE / Editor specific
 .idea/
 .vscode/
+\n# Agent Zero project folder\n.a0proj/
+
+# Agent Zero project files
+/.a0proj/
+
+# SQLite database files
+*.db

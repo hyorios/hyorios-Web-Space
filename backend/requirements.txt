@@ -3,7 +3,7 @@ annotated-types==0.7.0
 anyio==4.12.1
 argcomplete==3.6.3
 asttokens==3.0.1
-bcrypt==5.0.0
+bcrypt
 certifi==2026.1.4
 charset-normalizer==3.4.4
 click==8.3.1
@@ -21,7 +21,7 @@ jedi==0.19.2
 matplotlib-inline==0.2.1
 packaging==26.0
 parso==0.8.5
-passlib==1.7.4
+passlib
 pexpect==4.9.0
 pipx==1.8.0
 platformdirs==4.5.1

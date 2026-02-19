@@ -12,8 +12,8 @@ router = APIRouter(
 
 @router.post('/users/', response_model=schemas.User, status_code=status.HTTP_201_CREATED)
 def create_user(request: schemas.UserCreate, db: Session = Depends(database.get_db)):
-    new_user = models.User(email=request.email, password=Hash.bcrypt(request.password))
     try:
+        new_user = models.User(email=request.email, password=Hash.bcrypt(request.password))
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
@@ -23,10 +23,9 @@ def create_user(request: schemas.UserCreate, db: Session = Depends(database.get_
                             detail=f"User with email '{request.email}' already exists.")
     except Exception as e:
         db.rollback()
-        # Log the error for debugging purposes (in a real app)
-        # print(f"An unexpected error occurred: {e}")
+        # In a real app, you would log the error e
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail="An unexpected error occurred while creating the user.")
+                            detail="An unexpected internal error occurred.")
     return new_user
 
 @router.post('/token')

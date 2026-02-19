@@ -1,30 +1,15 @@
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, Field
 
-# --- User Schemas ---
-
-# This is the schema for data we expect when a user signs up.
 class UserCreate(BaseModel):
     email: str
-    password: str
+    password: str = Field(..., min_length=4, max_length=30)
 
-# This is the schema for data we can safely return to the client.
-# It should NEVER include the password.
 class User(BaseModel):
-    id: int
     email: str
 
     class Config:
-        orm_mode = True # This allows Pydantic to read the data from our ORM models (like models.User)
+        from_attributes = True
 
-# --- Token Schemas ---
-
-# This schema defines the structure of the access token we send back on login.
 class Token(BaseModel):
     access_token: str
     token_type: str
-
-# This schema defines the data we store inside the JWT.
-class TokenData(BaseModel):
-    email: Optional[str] = None
-

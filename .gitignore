@@ -18,3 +18,4 @@ venv/
 
 # SQLite database files
 *.db
+backend/*.db

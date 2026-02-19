@@ -1,13 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('register-form');
     const loginForm = document.getElementById('login-form');
-    const messageElement = document.getElementById('message');
+    const messageDiv = document.getElementById('message');
+
+    const showMessage = (msg, isError = false) => {
+        if (messageDiv) {
+            messageDiv.textContent = msg;
+            messageDiv.style.color = isError ? 'red' : 'green';
+        }
+    };
 
     if (registerForm) {
-        registerForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const email = event.target.email.value;
-            const password = event.target.password.value;
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
             try {
                 const response = await fetch('/users/', {
@@ -19,27 +26,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const data = await response.json();
-
-                if (response.ok) {
-                    messageElement.textContent = 'Registrierung erfolgreich! Sie können sich jetzt einloggen.';
-                    messageElement.style.color = 'green';
-                    setTimeout(() => window.location.href = '/login', 2000);
-                } else {
-                    messageElement.textContent = `Fehler: ${data.detail}`;
-                    messageElement.style.color = 'red';
+                if (!response.ok) {
+                    throw new Error(data.detail || `HTTP error! status: ${response.status}`);
                 }
+
+                showMessage(`User ${data.email} registered successfully! You can now log in.`);
+                registerForm.reset();
+
             } catch (error) {
-                messageElement.textContent = 'Ein Netzwerkfehler ist aufgetreten.';
-                messageElement.style.color = 'red';
+                showMessage(error.message, true);
             }
         });
     }
 
     if (loginForm) {
-        loginForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const email = event.target.email.value;
-            const password = event.target.password.value;
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
             const formData = new URLSearchParams();
             formData.append('username', email);
@@ -55,20 +59,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const data = await response.json();
-
-                if (response.ok) {
-                    localStorage.setItem('accessToken', data.access_token);
-                    messageElement.textContent = 'Login erfolgreich! Sie werden weitergeleitet...';
-                    messageElement.style.color = 'green';
-                    // Später hier auf ein echtes Dashboard weiterleiten
-                    // window.location.href = '/dashboard'; 
-                } else {
-                    messageElement.textContent = `Fehler: ${data.detail}`;
-                    messageElement.style.color = 'red';
+                if (!response.ok) {
+                    throw new Error(data.detail || `HTTP error! status: ${response.status}`);
                 }
+
+                localStorage.setItem('accessToken', data.access_token);
+                showMessage('Login successful! Redirecting...');
+                window.location.href = '/';
+
             } catch (error) {
-                messageElement.textContent = 'Ein Netzwerkfehler ist aufgetreten.';
-                messageElement.style.color = 'red';
+                showMessage(error.message, true);
             }
         });
     }

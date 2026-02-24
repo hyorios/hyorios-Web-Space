@@ -40,3 +40,9 @@ async def serve_login_page(request: Request):
 async def serve_register_page(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
+
+# --- API Test Route for Frontend ---
+@app.get("/api/status")
+async def get_status():
+    """A simple endpoint to confirm the backend is running."""
+    return {"message": "Backend is running!"}

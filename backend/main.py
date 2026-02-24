@@ -1,8 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-from backend import models
+from fastapi.templating import Jinja2Templates
+
 from .database import engine
+from . import models
 from .routers import authentication
 
 # Create all database tables
@@ -10,23 +12,31 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-# Include API routers
+# --- Frontend Setup ---
+# Mount the entire 'frontend' directory under the path '/static'
+# This makes files like 'frontend/js/auth.js' available at 'http://.../static/js/auth.js'
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+# Setup Jinja2 to find HTML templates in the 'frontend/templates' directory
+templates = Jinja2Templates(directory="frontend/templates")
+
+# --- API Router ---
+# Include the authentication routes (for /login, /token etc.)
 app.include_router(authentication.router)
 
-# Mount static file directories
-app.mount("/js", StaticFiles(directory="frontend/js"), name="js")
-app.mount("/css", StaticFiles(directory="frontend/css"), name="css")
 
-# Serve HTML files
-@app.get("/", response_class=FileResponse)
-async def read_index():
-    return "frontend/templates/index.html"
+# --- HTML Page Routes ---
+# These routes will serve the actual HTML pages
 
-@app.get("/login", response_class=FileResponse)
-async def read_login():
-    return "frontend/templates/login.html"
+@app.get("/", response_class=HTMLResponse)
+async def serve_home(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
-@app.get("/register", response_class=FileResponse)
-async def read_register():
-    return "frontend/templates/register.html"
+@app.get("/login", response_class=HTMLResponse)
+async def serve_login_page(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+@app.get("/register", response_class=HTMLResponse)
+async def serve_register_page(request: Request):
+    return templates.TemplateResponse("register.html", {"request": request})
 

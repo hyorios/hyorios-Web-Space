@@ -13,7 +13,7 @@ router = APIRouter(
 @router.post('/users/', response_model=schemas.User, status_code=status.HTTP_201_CREATED)
 def create_user(request: schemas.UserCreate, db: Session = Depends(database.get_db)):
     try:
-        new_user = models.User(email=request.email, password=Hash.bcrypt(request.password))
+        new_user = models.User(email=request.email, hashed_password=Hash.bcrypt(request.password))
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
@@ -34,7 +34,7 @@ def login(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Invalid Credentials")
-    if not Hash.verify(user.password, request.password):
+    if not Hash.verify(request.password, user.hashed_password):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Incorrect password")
 

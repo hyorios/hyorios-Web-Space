@@ -61,3 +61,7 @@ Die Remote-Tunnel-Lösung hat sich als unzuverlässig erwiesen. Hier ist eine st
     [http://localhost:8000](http://localhost:8000)
 
     Sie sollten nun die Web-Plattform sehen. Um den Server zu stoppen, wechseln Sie zurück ins Terminal und drücken `STRG+C`.
+
+## Development Notes
+
+- **2026-02-25:** Added CORS middleware to the FastAPI backend (`backend/main.py`) to resolve connection issues between the frontend and backend during local development.

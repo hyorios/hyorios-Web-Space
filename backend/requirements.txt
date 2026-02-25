@@ -1,7 +1,16 @@
 fastapi
+<<<<<<< HEAD
 uvicorn
 python-jose[cryptography]
 passlib[bcrypt]
 sqlalchemy
 python-multipart
 Jinja2
+=======
+uvicorn[standard]
+sqlalchemy
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt==4.0.1
+python-multipart
+>>>>>>> 196066d (laufender login und regsitrieren)

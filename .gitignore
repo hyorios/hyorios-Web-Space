@@ -20,3 +20,5 @@ venv/
 *.db
 backend/*.db
 venv/
+.DS_Store
+.DS_Store

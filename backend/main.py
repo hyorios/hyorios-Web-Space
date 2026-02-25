@@ -12,6 +12,19 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+# ---- CORS Middleware ----
+# Allow all origins for development purposes. This should be restricted in production.
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 # ---- Frontend Setup ----
 app.mount("/static", StaticFiles(directory="frontend"), name="static")
 

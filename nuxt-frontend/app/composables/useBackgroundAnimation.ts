@@ -32,11 +32,11 @@ export function useBackgroundAnimation(containerRef: Ref<HTMLElement | null>) {
     const el = document.createElement(isImage ? 'img' : 'div')
     
     if (isImage) {
-      (el as HTMLImageElement).src = unsplashImages[Math.floor(Math.random() * unsplashImages.length)]
-      el.className = 'ambient-image'
+      (el as HTMLImageElement).src = unsplashImages[Math.floor(Math.random() * unsplashImages.length)] || ''
+      el.className = 'absolute rounded-2xl w-48 md:w-72 h-auto object-contain grayscale-[85%] shadow-2xl opacity-60'
     } else {
-      el.innerText = quotes[Math.floor(Math.random() * quotes.length)]
-      el.className = 'ambient-quote'
+      el.innerText = quotes[Math.floor(Math.random() * quotes.length)] || ''
+      el.className = 'absolute text-zinc-400/40 italic font-serif text-lg md:text-2xl whitespace-nowrap tracking-wide'
     }
 
     containerRef.value.appendChild(el)

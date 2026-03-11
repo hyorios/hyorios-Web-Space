@@ -5,37 +5,14 @@ defineProps<{
 </script>
 
 <template>
-  <header class="hero">
-    <h1>{{ locale === 'en' ? 'Digital Playground' : 'Digitale Spielwiese' }}</h1>
-    <p>{{ locale === 'en' 
+  <header class="text-center mb-28">
+    <h1 class="text-5xl md:text-7xl font-black mb-6 tracking-tight leading-tight bg-gradient-to-br from-white to-zinc-400 bg-clip-text text-transparent">
+      {{ locale === 'en' ? 'Digital Playground' : 'Digitale Spielwiese' }}
+    </h1>
+    <p class="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+      {{ locale === 'en' 
         ? 'Engineering intuitive interfaces & scalable backends for a connected world.' 
-        : 'Entwicklung intuitiver Interfaces & skalierbarer Backends für eine vernetzte Welt.' }}</p>
+        : 'Entwicklung intuitiver Interfaces & skalierbarer Backends für eine vernetzte Welt.' }}
+    </p>
   </header>
 </template>
-
-<style scoped>
-.hero {
-  text-align: center;
-  margin-bottom: 7rem;
-}
-
-.hero h1 {
-  font-size: clamp(3rem, 6vw, 5rem);
-  font-weight: 900;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-  background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero p {
-  color: #a1a1aa;
-  font-size: clamp(1.1rem, 2vw, 1.35rem);
-  max-width: 650px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-</style>

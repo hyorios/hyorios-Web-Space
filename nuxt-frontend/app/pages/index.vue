@@ -22,7 +22,7 @@ const toggleLocale = () => {
 </script>
 
 <template>
-  <div class="portfolio-container font-sans text-white min-h-screen relative overflow-hidden">
+  <div class="font-sans text-zinc-50 min-h-screen relative overflow-hidden bg-zinc-950">
     
     <!-- Ambient Floating System -->
     <AmbientBackground />
@@ -31,12 +31,12 @@ const toggleLocale = () => {
     <AppNavbar :locale="locale" @toggle-locale="toggleLocale" />
 
     <!-- Content Area -->
-    <main class="main-content">
+    <main class="relative z-10 pt-44 pb-24 px-8 max-w-7xl mx-auto">
       <HeroSection :locale="locale" />
 
       <!-- Bento Grid structure -->
-      <section id="projects" class="projects-grid">
-        <div v-if="pending" class="col-span-full loading-state">
+      <section id="projects" class="grid gap-6 grid-cols-1 md:grid-cols-3">
+        <div v-if="pending" class="col-span-full text-center py-16 text-zinc-400 text-xl">
           {{ locale === 'en' ? 'Loading projects...' : 'Projekte werden geladen...' }}
         </div>
         
@@ -51,47 +51,3 @@ const toggleLocale = () => {
     </main>
   </div>
 </template>
-
-<style scoped>
-.portfolio-container {
-  background-color: #0a0a0a;
-  color: #fafafa;
-  min-height: 100vh;
-  position: relative;
-  overflow-x: hidden;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-
-/* Layout Content */
-.main-content {
-  position: relative;
-  z-index: 10;
-  padding: 11rem 2rem 6rem;
-  max-width: 1300px;
-  margin: 0 auto;
-}
-
-/* Grid mimics utility classes (grid-cols-1 md:grid-cols-3) */
-.projects-grid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
-@media (min-width: 768px) {
-  .projects-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr)); /* Equivalent to md:grid-cols-3 */
-  }
-}
-
-.col-span-full {
-  grid-column: 1 / -1;
-}
-
-.loading-state {
-  text-align: center;
-  padding: 4rem;
-  color: #a1a1aa;
-  font-size: 1.25rem;
-}
-</style>

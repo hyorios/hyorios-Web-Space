@@ -31,3 +31,11 @@
 
 ### TDD Outcomes
 - Validated that existing API `ProjectTest` assertions (e.g., filtering logic by tech stack output shapes) map correctly onto the new `data` wrapper outputs constructed by `ProjectResource`.
+
+## 2026-03-11: UI Cleanup & Tailwind Migration
+
+### UI Fixes
+1. **Backend Admin CSS**: Fixed the Backpack Login page (`/admin/login`) missing styles. Backpack 7+ uses Vite; running `npm install` and `npm run build` inside `laravel-api` successfully deployed `app.css` and `app.js` to public assets, restoring the UI.
+2. **Frontend UI Fix (Tailwind Strict Policy)**: Removed all custom/scoped CSS (`<style scoped>`) from Nuxt SFCs in favor of strictly using Tailwind CSS classes, as per rules. installed `@nuxtjs/tailwindcss`.
+3. **Z-Index Layering Fix**: The Ambient Background was bleeding into content. Fixed by applying strict Tailwind layers: `-z-10` on the `AmbientBackground.vue` wrapper and increasing `z-10` on main content. Also significantly lowered opacity on drifting quotes/images via `useBackgroundAnimation` to avoid visual clutter.
+4. **Bento Grid Refactoring**: The Grid layout uses clean utility mapping `grid gap-6 grid-cols-1 md:grid-cols-3` now instead of complex custom grids.

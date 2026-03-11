@@ -2,62 +2,79 @@
 
 Welcome to my personal digital space! This is a web application built from the ground up to be a canvas for creativity and experimentation.
 
-## About
+## Architecture
 
-This project started as a simple "Walking Skeleton" - a minimal but functional FastAPI backend serving a basic HTML frontend. It's designed to evolve and grow with new features over time.
+This project was recently migrated from a FastAPI starting point to a modern, robust architecture:
 
-Built with the help of Agent Zero.
-
----
+-   **Backend:** Laravel (inside `laravel-api/`)
+    -   Exposes a RESTful API.
+    -   Includes Laravel Backpack for content management.
+-   **Frontend:** Nuxt 3 (inside `nuxt-frontend/`)
+    -   Vue 3 framework for the public facing portfolio and web space.
+    -   Communicates with the Laravel API.
 
 ## Local Development Setup
 
-Die Remote-Tunnel-Lösung hat sich als unzuverlässig erwiesen. Hier ist eine stabile Schritt-für-Schritt-Anleitung, um das Projekt direkt auf Ihrem lokalen Computer auszuführen.
+To run this project locally, you will need PHP (with Composer) for the backend and Node.js (with npm) for the frontend.
 
-### Voraussetzungen
+### 1. Backend (Laravel) Setup
 
-- [Python 3.8+](https://www.python.org/downloads/)
-- [pip](https://pip.pypa.io/en/stable/installation/) (wird normalerweise mit Python installiert)
+1. **Navigate to the backend directory:**
+   ```bash
+   cd laravel-api
+   ```
+2. **Install PHP dependencies:**
+   ```bash
+   composer install
+   ```
+3. **Environment Setup:**
+   Copy the example environment file and configure your database (e.g., using SQLite).
+   ```bash
+   cp .env.example .env
+   ```
+   *Make sure your database connection settings are correct in `.env`.*
+4. **Generate application key:**
+   ```bash
+   php artisan key:generate
+   ```
+5. **Run migrations (and seed data if available):**
+   ```bash
+   php artisan migrate --seed
+   ```
+6. **Start the Laravel development server:**
+   ```bash
+   php artisan serve
+   ```
+   The API will typically run on `http://127.0.0.1:8000`.
 
-### Schritt-für-Schritt-Anleitung
+### 2. Frontend (Nuxt) Setup
 
-1.  **Öffnen Sie Ihr Terminal:**
-    Starten Sie Ihre Kommandozeile (Terminal, PowerShell, Eingabeaufforderung etc.).
+1. **Navigate to the frontend directory:**
+   (Open a new terminal window/tab)
+   ```bash
+   cd nuxt-frontend
+   ```
+2. **Install Node.js dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Environment Setup:**
+   Copy the example environment file (if provided) or create a `.env` file to set your API base URL.
+   ```bash
+   cp .env.example .env
+   ```
+   *Example `.env` content: `NUXT_PUBLIC_API_BASE=http://127.0.0.1:8000/api`*
+4. **Start the Nuxt development server:**
+   ```bash
+   npm run dev
+   ```
+   The frontend will typically run on `http://localhost:3000`.
 
-2.  **Navigieren Sie zum Projektverzeichnis:**
-    Wechseln Sie mit dem `cd`-Befehl in den Projektordner.
-    ```bash
-    cd pfad/zu/hyorios-Web-Space
-    ```
+## Features
 
-3.  **Virtuelle Umgebung erstellen und aktivieren:**
-    Dies isoliert die Projekt-Abhängigkeiten von Ihrem System.
-    ```bash
-    # Umgebung erstellen
-    python3 -m venv venv
+-   **Projects Showcase:** View a list of published portfolio projects, filterable by tech stack.
+-   **Project Details:** Dedicated detail pages for individual projects.
+-   **Backoffice:** Manage content via the Laravel Backpack admin panel.
 
-    # Aktivieren (macOS/Linux)
-    source venv/bin/activate
-
-    # Aktivieren (Windows)
-    .\venv\Scripts\activate
-    ```
-    *Sie erkennen die aktive Umgebung an dem `(venv)` vor Ihrer Kommandozeilen-Eingabe.*
-
-4.  **Abhängigkeiten installieren:**
-    Installieren Sie alle benötigten Python-Pakete mit einem einzigen Befehl.
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-5.  **Webserver starten:**
-    Starten Sie die FastAPI-Anwendung mit `uvicorn`.
-    ```bash
-    uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-    ```
-
-6.  **Anwendung im Browser aufrufen:**
-    Der Server läuft jetzt! Öffnen Sie Ihren Webbrowser und gehen Sie zu folgender Adresse:
-    [http://localhost:8000](http://localhost:8000)
-
-    Sie sollten nun die Web-Plattform sehen. Um den Server zu stoppen, wechseln Sie zurück ins Terminal und drücken `STRG+C`.
+---
+*Built with the help of AI coding assistants.*

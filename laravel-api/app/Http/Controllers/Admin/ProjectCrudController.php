@@ -39,12 +39,12 @@ class ProjectCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // set columns from db columns.
-
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        CRUD::column('title')->type('text');
+        CRUD::column('slug')->type('text');
+        CRUD::column('is_published')->type('boolean');
+        CRUD::column('is_featured')->type('boolean');
+        CRUD::column('published_at')->type('datetime');
+        CRUD::column('status')->type('text');
     }
 
     /**
@@ -56,12 +56,23 @@ class ProjectCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ProjectRequest::class);
-        CRUD::setFromDb(); // set fields from db columns.
-
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
+        
+        CRUD::field('title')->type('text');
+        CRUD::field('slug')->type('text');
+        CRUD::field('description')->type('textarea');
+        CRUD::field('excerpt')->type('textarea');
+        CRUD::field('cover_image')->type('text');
+        
+        CRUD::field('tech_stack')->type('text')
+            ->hint('Comma separated values, we can cast it if needed.'); 
+            
+        CRUD::field('repo_url')->type('url');
+        CRUD::field('live_url')->type('url');
+        
+        CRUD::field('is_featured')->type('boolean');
+        CRUD::field('is_published')->type('boolean');
+        CRUD::field('published_at')->type('datetime');
+        CRUD::field('status')->type('text')->default('planned');
     }
 
     /**

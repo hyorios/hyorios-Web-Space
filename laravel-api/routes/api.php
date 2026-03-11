@@ -4,10 +4,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Project;
 
+use App\Http\Controllers\Api\V1\ProjectController;
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/projects', function () {
-    return Project::orderBy('created_at', 'desc')->get();
+Route::prefix('v1')->group(function () {
+    Route::get('/projects', [ProjectController::class, 'index']);
+    Route::get('/projects/{slug}', [ProjectController::class, 'show']);
 });

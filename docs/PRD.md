@@ -67,8 +67,12 @@ Ein öffentliches Portfolio, das reale Projekte strukturiert zeigt und sich übe
   - Startseite mit Hero + Featured Projects
   - Projektübersicht mit Filter/Sortierung
   - Projekt-Detailseite pro Eintrag
+- Sprache:
+  - zweisprachig: Deutsch und Englisch (DE/EN)
 - Content-Modell erweitern:
   - `slug`, `excerpt`, `thumbnail/cover`, `tech_stack`, `repo_url`, `live_url`, `is_featured`, `published_at`
+- Darstellungsformat:
+  - Projekte als Case Studies (nicht nur Karten), z. B. Problem, Lösung, Umsetzung, Ergebnis
 - Admin-Usability:
   - valide Felder, klare Formulare, Veröffentlichungsstatus
 - API verbessern:
@@ -79,7 +83,6 @@ Ein öffentliches Portfolio, das reale Projekte strukturiert zeigt und sich übe
   - Smoke-Test für zentrale Frontend-Datenladung
 
 ### 5.3 Nicht im Scope (v1)
-- Mehrsprachigkeit
 - Nutzerregistrierung für Endkunden
 - Kommentar-/CMS-Komplexität
 - Vollständiges Analytics/Tracking-Ökosystem
@@ -97,6 +100,12 @@ Ein öffentliches Portfolio, das reale Projekte strukturiert zeigt und sich übe
 - Ohne Testbasis steigt Regressionsrisiko bei iterativen Änderungen.
 
 ## 8) Offene Fragen für die gemeinsame Abstimmung
-- Soll Portfolio v1 bilingual (DE/EN) starten oder erst in v2?
-- Sollen Projekte als reine Cards reichen oder als Case-Studies mit Abschnitten (Problem, Lösung, Impact)?
-- Priorität: zuerst Content-/Admin-Modell, oder zuerst öffentliche Seitenstruktur?
+- Keine offenen Fragen mehr zu Sprachstrategie, Inhaltsformat und Priorisierung.
+
+## 9) Abgestimmte Entscheidungen (11.03.2026)
+- Portfolio v1 startet **zweisprachig (DE/EN)**.
+- Projekte werden als **Case Studies** aufbereitet.
+- Umsetzungsreihenfolge ist **Content first**:
+  1. Datenmodell + Admin-Felder + Validierung
+  2. API-Vertrag für strukturierte Portfolio-Inhalte
+  3. Frontend-Seiten für Listen/Details und Sprachumschaltung

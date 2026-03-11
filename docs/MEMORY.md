@@ -62,3 +62,15 @@
 
 ### Backend Testing Stability
 - Disabled automated Gravatar API lookups for Backpack in local and testing environments `env('BACKPACK_AVATAR_TYPE', config('app.env') === 'local' || config('app.env') === 'testing' ? false : 'gravatar')` within `config/backpack/base.php`. This stops the Backpack layout from timing out or throwing connection-refused errors globally when making external API requests offline.
+
+## 2026-03-11: Case Study Capabilities & Production Seeding
+
+### Advanced Validation & Logic
+- Implemented robust FormRequest checks in `ProjectRequest.php`: ensured URL syntax for `repo_url` and `live_url`. Enforced conditional requirements (`required_if:is_published,1`) on core content fields (e.g., `excerpt`, `description`).
+- Expanded the `Project` model with JSON-translatable columns for structured case studies (`problem`, `solution`, `implementation`, `result`, `metrics`).
+
+### Admin Panel UI (Tabs)
+- The Backpack `ProjectCrudController` interface was refactored into segmented Tabs ('Basic Info', 'Case Study', 'Links & Meta') to simplify editing the new array of case study fields, maintaining a clean operator experience.
+
+### Pre-configured Seeders
+- Restructured `DatabaseSeeder.php` to automatically provision an `admin@hyorios.com` user, and deploy a comprehensive, fully-translated (DE/EN) demo "FinTech Scale-up Automation" case study project upon fresh migrations, allowing the system to instantly run out-of-the-box.

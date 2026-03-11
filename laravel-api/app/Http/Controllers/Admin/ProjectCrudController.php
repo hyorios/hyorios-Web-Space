@@ -57,22 +57,105 @@ class ProjectCrudController extends CrudController
     {
         CRUD::setValidation(ProjectRequest::class);
         
-        CRUD::field('title')->type('text');
-        CRUD::field('slug')->type('text');
-        CRUD::field('description')->type('textarea');
-        CRUD::field('excerpt')->type('textarea');
-        CRUD::field('cover_image')->type('text');
+        // --- BASIC INFO TAB ---
+        CRUD::addField([
+            'name' => 'title',
+            'type' => 'text',
+            'tab'  => 'Basic Info',
+        ]);
+        CRUD::addField([
+            'name' => 'slug',
+            'type' => 'text',
+            'tab'  => 'Basic Info',
+        ]);
+        CRUD::addField([
+            'name' => 'excerpt',
+            'type' => 'textarea',
+            'tab'  => 'Basic Info',
+        ]);
+        CRUD::addField([
+            'name' => 'description',
+            'type' => 'textarea',
+            'tab'  => 'Basic Info',
+        ]);
+        CRUD::addField([
+            'name' => 'cover_image',
+            'label' => 'Thumbnail URL',
+            'type' => 'text',
+            'tab'  => 'Basic Info',
+        ]);
         
-        CRUD::field('tech_stack')->type('text')
-            ->hint('Comma separated values, we can cast it if needed.'); 
-            
-        CRUD::field('repo_url')->type('url');
-        CRUD::field('live_url')->type('url');
+        // --- CASE STUDY TAB ---
+        CRUD::addField([
+            'name' => 'problem',
+            'type' => 'textarea',
+            'tab'  => 'Case Study',
+            'hint' => 'What was the core problem to solve?'
+        ]);
+        CRUD::addField([
+            'name' => 'solution',
+            'type' => 'textarea',
+            'tab'  => 'Case Study',
+            'hint' => 'How did you approach it?'
+        ]);
+        CRUD::addField([
+            'name' => 'implementation',
+            'type' => 'textarea',
+            'tab'  => 'Case Study',
+            'hint' => 'Technical details and execution.'
+        ]);
+        CRUD::addField([
+            'name' => 'result',
+            'type' => 'textarea',
+            'tab'  => 'Case Study',
+            'hint' => 'Final outcome and learnings.'
+        ]);
+        CRUD::addField([
+            'name' => 'metrics',
+            'label' => 'Metrics (JSON)',
+            'type' => 'textarea',
+            'tab'  => 'Case Study',
+            'hint' => 'Optional quantifiable results formatted as JSON (e.g., {"users": "10k+", "uptime": "99.9%"}).'
+        ]);
+
+        // --- LINKS & META TAB ---
+        CRUD::addField([
+            'name' => 'repo_url',
+            'label' => 'Repository URL',
+            'type' => 'url',
+            'tab'  => 'Links & Meta',
+        ]);
+        CRUD::addField([
+            'name' => 'live_url',
+            'label' => 'Live Demo URL',
+            'type' => 'url',
+            'tab'  => 'Links & Meta',
+        ]);
+        CRUD::addField([
+            'name' => 'tech_stack',
+            'label' => 'Tech Stack (JSON format array)',
+            'type' => 'textarea',
+            'tab'  => 'Links & Meta',
+            'hint' => 'e.g., ["Vue", "Laravel", "Tailwind"]',
+        ]);
         
-        CRUD::field('is_featured')->type('boolean');
-        CRUD::field('is_published')->type('boolean');
-        CRUD::field('published_at')->type('datetime');
-        CRUD::field('status')->type('text')->default('planned');
+        CRUD::addField([
+            'name' => 'is_featured',
+            'label' => 'Featured Project',
+            'type' => 'checkbox',
+            'tab'  => 'Links & Meta',
+        ]);
+        CRUD::addField([
+            'name' => 'is_published',
+            'label' => 'Published',
+            'type' => 'checkbox',
+            'tab'  => 'Links & Meta',
+        ]);
+        CRUD::addField([
+            'name' => 'published_at',
+            'type' => 'datetime',
+            'tab'  => 'Links & Meta',
+        ]);
     }
 
     /**

@@ -34,6 +34,17 @@ class ProjectRequest extends FormRequest
                 'max:255',
                 \Illuminate\Validation\Rule::unique('projects', 'slug')->ignore($id),
             ],
+            'repo_url' => 'nullable|url',
+            'live_url' => 'nullable|url',
+            'metrics' => 'nullable|json',
+            'cover_image' => 'nullable|string',
+            
+            // Core publish logic: if marked as published, core content is strictly required
+            'excerpt' => 'required_if:is_published,1',
+            'description' => 'required_if:is_published,1',
+            
+            // Case study translatable fields don't need strict type checks here 
+            // since backpack handles the json/array encoding, but they are available.
         ];
     }
 

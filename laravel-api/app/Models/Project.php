@@ -10,7 +10,7 @@ class Project extends Model
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use \Spatie\Translatable\HasTranslations;
     
-    public $translatable = ['title', 'description', 'excerpt'];
+    public $translatable = ['title', 'description', 'excerpt', 'problem', 'solution', 'implementation', 'result', 'metrics'];
 
     protected $fillable = [
         'title',
@@ -24,6 +24,11 @@ class Project extends Model
         'is_featured',
         'is_published',
         'published_at',
+        'problem',
+        'solution',
+        'implementation',
+        'result',
+        'metrics',
     ];
 
     protected $casts = [

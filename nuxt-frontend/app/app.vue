@@ -1,28 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 
-const projects = ref<{ id: number; title: string; description: string; status: string }[]>([])
-const connectionStatus = ref('Pinging backend...')
-const connectionColor = ref('var(--text-secondary)')
 
-const fetchProjects = async () => {
-  try {
-    const response = await fetch('http://127.0.0.1:8000/api/projects')
-    if (!response.ok) throw new Error('Network response was not ok')
-    projects.value = await response.json()
-    connectionStatus.value = '✅ Connected to the Matrix'
-    connectionColor.value = '#22c55e'
-  } catch (error) {
-    console.error('Failed to fetch projects', error)
-    connectionStatus.value = '❌ Backend connection failed'
-    connectionColor.value = '#dc3545'
-  }
-}
 
-// Ensure the fetch happens client-side directly
-onMounted(() => {
-  fetchProjects()
-})
+// We no longer fetch projects here since it has been moved to index.vue
 
 // Define quotes directly here
 const quotes = [
@@ -72,7 +53,7 @@ const spawnQuote = () => {
 
   activeQuotes.value.push({
     id,
-    text: rawQuote,
+    text: rawQuote || '',
     top: topPos,
     size: baseSize + extraSize,
     duration
@@ -84,13 +65,7 @@ const spawnQuote = () => {
   }, duration * 1000)
 }
 
-const handleMouseMove = (e: MouseEvent, cardElement: HTMLElement) => {
-  const rect = cardElement.getBoundingClientRect()
-  const x = e.clientX - rect.left
-  const y = e.clientY - rect.top
-  cardElement.style.setProperty('--mouse-x', `${x}px`)
-  cardElement.style.setProperty('--mouse-y', `${y}px`)
-}
+
 
 onMounted(() => {
   // Initial quotes
@@ -124,45 +99,8 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <!-- Main Content -->
-    <main>
-      <header>
-        <h1>My Space</h1>
-        <p>A canvas for creativity, projects, and exploration.</p>
-      </header>
-
-      <section class="dashboard-grid">
-        <a 
-          v-for="project in projects" 
-          :key="project.id" 
-          href="#" 
-          class="project-card"
-          @mousemove="(e) => handleMouseMove(e, e.currentTarget as HTMLElement)"
-        >
-          <div class="card-title">{{ project.title }}</div>
-          <div class="card-desc">{{ project.description }}</div>
-          <div class="status">
-            <span :class="['status-dot', project.status === 'active' ? 'active' : 'planned']" />
-            {{ project.status === 'active' ? 'Active' : 'Planned' }}
-          </div>
-        </a>
-
-        <!-- System Status Box -->
-        <a 
-          href="#" 
-          class="project-card" 
-          @click.prevent="fetchProjects"
-          @mousemove="(e) => handleMouseMove(e, e.currentTarget as HTMLElement)"
-        >
-          <div class="card-title">System Status</div>
-          <div class="card-desc">{{ connectionStatus }}</div>
-          <div class="status" style="cursor: pointer;">
-            <span class="status-dot" :style="{ backgroundColor: connectionColor, boxShadow: `0 0 8px ${connectionColor}` }" />
-            Ping Backend
-          </div>
-        </a>
-      </section>
-    </main>
+    <!-- Main Routing Content -->
+    <NuxtPage />
   </div>
 </template>
 

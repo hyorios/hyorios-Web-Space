@@ -9,3 +9,15 @@
 
 ### TDD Outcomes
 - Tests were successfully written and validated around Admin Middleware block/allow access methods, as well as Backpack's form validation requests. Make sure `$fillable` fields are updated on Eloquent Models (`Project.php`) when adding new columns to make traits work during Backpack updates.
+
+## 2026-03-11: Nuxt 3 Frontend Modularization & Component Architecture
+
+### Architectural Decisions
+1. **SFC Modularization**: The `index.vue` page was split into distinct components (`AppNavbar.vue`, `HeroSection.vue`, `AmbientBackground.vue`, `ProjectCard.vue`) located in `app/components/` in accordance with Vue/Nuxt 3 best practices.
+2. **Prop Drilling & Emits**: State like `locale` remains at the top-level (`pages/index.vue`), passing down props to functional UI components and reacting to emits for interactivity (`@toggle-locale`).
+3. **CSS Scoping**: Giant monolothic styles in `index.vue` were broken up into isolated, `scoped` blocks across each component.
+4. **GSAP Injection**: The ambient GSAP logic is properly contained inside a single dummy `AmbientBackground.vue` container referencing `useBackgroundAnimation` within the Nuxt App Context to avoid blocking main content rendering.
+
+### TDD Outcomes
+- Verified `ProjectCard.vue` correctly renders props out of the box using Vitest and `happy-dom` before actual integration.
+- Configured Nuxt `@nuxt/test-utils` environment inside the frontend structure to guarantee a green-light approach for component development going forward.

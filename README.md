@@ -76,5 +76,37 @@ To run this project locally, you will need PHP (with Composer) for the backend a
 -   **Project Details:** Dedicated detail pages for individual projects.
 -   **Backoffice:** Manage content via the Laravel Backpack admin panel.
 
+<<<<<<< HEAD
 ---
 *Built with the help of AI coding assistants.*
+=======
+    # Aktivieren (macOS/Linux)
+    source venv/bin/activate
+
+    # Aktivieren (Windows)
+    .\venv\Scripts\activate
+    ```
+    *Sie erkennen die aktive Umgebung an dem `(venv)` vor Ihrer Kommandozeilen-Eingabe.*
+
+4.  **Abhängigkeiten installieren:**
+    Installieren Sie alle benötigten Python-Pakete mit einem einzigen Befehl.
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+5.  **Webserver starten:**
+    Starten Sie die FastAPI-Anwendung mit `uvicorn`.
+    ```bash
+    uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ```
+
+6.  **Anwendung im Browser aufrufen:**
+    Der Server läuft jetzt! Öffnen Sie Ihren Webbrowser und gehen Sie zu folgender Adresse:
+    [http://localhost:8000](http://localhost:8000)
+
+    Sie sollten nun die Web-Plattform sehen. Um den Server zu stoppen, wechseln Sie zurück ins Terminal und drücken `STRG+C`.
+
+## Development Notes
+
+- **2026-02-25:** Added CORS middleware to the FastAPI backend (`backend/main.py`) to resolve connection issues between the frontend and backend during local development.
+>>>>>>> a1d2f8419b4adf21b301f3b82751028989e7689c

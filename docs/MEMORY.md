@@ -39,3 +39,10 @@
 2. **Frontend UI Fix (Tailwind Strict Policy)**: Removed all custom/scoped CSS (`<style scoped>`) from Nuxt SFCs in favor of strictly using Tailwind CSS classes, as per rules. installed `@nuxtjs/tailwindcss`.
 3. **Z-Index Layering Fix**: The Ambient Background was bleeding into content. Fixed by applying strict Tailwind layers: `-z-10` on the `AmbientBackground.vue` wrapper and increasing `z-10` on main content. Also significantly lowered opacity on drifting quotes/images via `useBackgroundAnimation` to avoid visual clutter.
 4. **Bento Grid Refactoring**: The Grid layout uses clean utility mapping `grid gap-6 grid-cols-1 md:grid-cols-3` now instead of complex custom grids.
+
+## 2026-03-11: Custom Backend Login (Admin Portal)
+
+### UI Design
+- **Particle System**: The default Backpack login page was structurally overridden (`vendor/backpack/theme-tabler/auth/login.blade.php`) to ditch the white background and present a deep Charcoal theme (`#0a0a0a`).
+- **Canvas Animations**: A custom, lightweight vanilla JS particle system (500 drifting zinc-colored dots on an infinite loop) is rendered underneath the login form to parallel the landing page's ambient vibe.
+- **Glassmorphism**: The login card container utilizes native CSS backdrop filters (`backdrop-filter: blur(16px)`) with subtle borders and 45% black opacity to float above the particle canvas.

@@ -46,3 +46,10 @@
 - **Particle System**: The default Backpack login page was structurally overridden (`vendor/backpack/theme-tabler/auth/login.blade.php`) to ditch the white background and present a deep Charcoal theme (`#0a0a0a`).
 - **Canvas Animations**: A custom, lightweight vanilla JS particle system (500 drifting zinc-colored dots on an infinite loop) is rendered underneath the login form to parallel the landing page's ambient vibe.
 - **Glassmorphism**: The login card container utilizes native CSS backdrop filters (`backdrop-filter: blur(16px)`) with subtle borders and 45% black opacity to float above the particle canvas.
+
+## 2026-03-11: FormRequest Validation Fixes
+
+### Slug Unique Checks
+- Fixed a bug in `ProjectRequest.php` where updating an existing project without altering its `slug` threw a "Slug already taken" validation error.
+- Integrated `\Illuminate\Validation\Rule::unique('projects', 'slug')->ignore($id)` by accurately extracting the Backpack route `$id` from the injected put parameters (`$this->get('id') ?? $this->route('id')`).
+- Wrote two new testing assertions (`test_project_can_be_updated_without_changing_slug` and `test_project_cannot_be_updated_with_existing_foreign_slug`) adhering to TDD parameters.

@@ -24,9 +24,16 @@ class ProjectRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->get('id') ?? $this->route('id');
+
         return [
             'title' => 'required|min:2|max:255',
-            'slug' => 'required|min:2|max:255|unique:projects,slug,' . optional($this->project)->id,
+            'slug' => [
+                'required',
+                'min:2',
+                'max:255',
+                \Illuminate\Validation\Rule::unique('projects', 'slug')->ignore($id),
+            ],
         ];
     }
 

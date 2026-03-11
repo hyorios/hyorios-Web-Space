@@ -24,9 +24,11 @@ const toggleLocale = () => {
   locale.value = locale.value === 'en' ? 'de' : 'en'
 }
 
+const config = useRuntimeConfig()
+
 const fetchProject = async () => {
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/v1/projects/${slug}`)
+    const response = await fetch(`${config.public.apiBase}/projects/${slug}`)
     if (!response.ok) {
       if (response.status === 404) {
         throw new Error('Project not found')

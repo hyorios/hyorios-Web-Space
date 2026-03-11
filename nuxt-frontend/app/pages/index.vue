@@ -8,7 +8,8 @@ import ProjectCard from '../components/ProjectCard.vue'
 const locale = ref<'en' | 'de'>('en')
 
 // Data fetching
-const { data: response, pending } = useFetch<any>('http://127.0.0.1:8000/api/v1/projects')
+const config = useRuntimeConfig()
+const { data: response, pending } = useFetch<any>(`${config.public.apiBase}/projects`)
 
 // Fallback logic for potentially wrapped JSON payload (data.data) in typical Laravel APIs
 const projects = computed(() => {

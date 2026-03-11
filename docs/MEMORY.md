@@ -53,3 +53,12 @@
 - Fixed a bug in `ProjectRequest.php` where updating an existing project without altering its `slug` threw a "Slug already taken" validation error.
 - Integrated `\Illuminate\Validation\Rule::unique('projects', 'slug')->ignore($id)` by accurately extracting the Backpack route `$id` from the injected put parameters (`$this->get('id') ?? $this->route('id')`).
 - Wrote two new testing assertions (`test_project_can_be_updated_without_changing_slug` and `test_project_cannot_be_updated_with_existing_foreign_slug`) adhering to TDD parameters.
+
+## 2026-03-11: Environment Stability & Runtime Config
+
+### Frontend Configuration
+- Removed hardcoded local API URLs (`http://127.0.0.1:8000/api/v1`) from `index.vue` and `[slug].vue`.
+- Leveraged Nuxt's `runtimeConfig` within `nuxt.config.ts`, introducing an environment variable `NUXT_PUBLIC_API_BASE` mapped to `useRuntimeConfig().public.apiBase` for robust cross-environment deployments.
+
+### Backend Testing Stability
+- Disabled automated Gravatar API lookups for Backpack in local and testing environments `env('BACKPACK_AVATAR_TYPE', config('app.env') === 'local' || config('app.env') === 'testing' ? false : 'gravatar')` within `config/backpack/base.php`. This stops the Backpack layout from timing out or throwing connection-refused errors globally when making external API requests offline.

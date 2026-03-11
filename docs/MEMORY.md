@@ -21,3 +21,13 @@
 ### TDD Outcomes
 - Verified `ProjectCard.vue` correctly renders props out of the box using Vitest and `happy-dom` before actual integration.
 - Configured Nuxt `@nuxt/test-utils` environment inside the frontend structure to guarantee a green-light approach for component development going forward.
+
+## 2026-03-11: API JSON Formatting & ProjectResource
+
+### Architectural Decisions
+1. **API Resource Classes**: Implemented `App\Http\Resources\ProjectResource` to enforce strict formatting and type-safety of Laravel responses to the Nuxt frontend.
+2. **Boolean and Array Casting**: Frontend expects strict arrays mapping (`tech_stack`) and booleans (`is_featured`). These are inherently backed by Eloquent `$casts` in the model, but the `ProjectResource` ensures this is consistently serialized to JSON by actively converting/guarding `tech_stack` and `bool` values.
+3. **Spatie Translation Outputs**: Explicit `getTranslations()` are used to deliver the JSON structure `{en: '...', de: '...'}` to Vue instead of auto-casting a single string based on the current locale, allowing reactive translations on the client.
+
+### TDD Outcomes
+- Validated that existing API `ProjectTest` assertions (e.g., filtering logic by tech stack output shapes) map correctly onto the new `data` wrapper outputs constructed by `ProjectResource`.

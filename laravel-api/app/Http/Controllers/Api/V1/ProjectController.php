@@ -24,9 +24,7 @@ class ProjectController extends Controller
 
         $projects = $query->get();
 
-        return response()->json([
-            'data' => $projects
-        ]);
+        return \App\Http\Resources\ProjectResource::collection($projects);
     }
 
     /**
@@ -39,8 +37,6 @@ class ProjectController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        return response()->json([
-            'data' => $project
-        ]);
+        return new \App\Http\Resources\ProjectResource($project);
     }
 }
